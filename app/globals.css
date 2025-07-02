@@ -1,0 +1,163 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 0 0% 100%;
+    --foreground: 222.2 84% 4.9%;
+    --card: 0 0% 100%;
+    --card-foreground: 222.2 84% 4.9%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 222.2 84% 4.9%;
+
+    /* Primary Colors - Industrial Blue */
+    --primary: 220 87% 32%; /* #0f4a7a - Industrial Blue */
+    --primary-foreground: 210 40% 98%; /* #f8fafc - White on primary */
+
+    /* Secondary Colors */
+    --secondary: 210 40% 94%; /* #f1f5f9 - Light Gray */
+    --secondary-foreground: 222 84% 5%; /* #0f172a - Dark text */
+
+    /* Accent Colors */
+    --accent: 217 91% 60%; /* #3b82f6 - Bright Blue */
+    --accent-foreground: 210 40% 98%; /* #f8fafc - White on accent */
+
+    --muted: 210 40% 96%;
+    --muted-foreground: 215.4 16.3% 46.9%;
+    --border: 214.3 31.8% 91.4%;
+    --input: 214.3 31.8% 91.4%;
+    --ring: 220 87% 32%;
+    --radius: 0.5rem;
+
+    /* Status Colors */
+    --success: 142 76% 36%; /* #16a34a - Green */
+    --success-light: 141 69% 58%; /* #4ade80 - Light Green */
+    --success-foreground: 138 62% 14%; /* #14532d - Dark Green */
+
+    --warning: 45 93% 47%; /* #eab308 - Amber */
+    --warning-light: 48 96% 53%; /* #facc15 - Light Amber */
+    --warning-foreground: 48 100% 20%; /* #854d0e - Dark Amber */
+
+    --destructive: 0 72% 51%; /* #dc2626 - Red */
+    --destructive-light: 0 91% 71%; /* #f87171 - Light Red */
+    --destructive-foreground: 0 86% 97%; /* #fef2f2 - Light on red */
+
+    --info: 213 94% 68%; /* #60a5fa - Light Blue */
+    --info-light: 214 95% 93%; /* #eff6ff - Very Light Blue */
+    --info-foreground: 213 94% 20%; /* #1e3a8a - Dark Blue */
+
+    --chart-1: 142 76% 36%;
+    --chart-2: 217 91% 60%;
+    --chart-3: 45 93% 47%;
+    --chart-4: 0 72% 51%;
+    --chart-5: 262 83% 58%;
+  }
+
+  .dark {
+    --background: 222.2 84% 4.9%;
+    --foreground: 210 40% 98%;
+    --card: 222.2 84% 4.9%;
+    --card-foreground: 210 40% 98%;
+    --popover: 222.2 84% 4.9%;
+    --popover-foreground: 210 40% 98%;
+    --primary: 217 91% 60%;
+    --primary-foreground: 222.2 84% 4.9%;
+    --secondary: 217.2 32.6% 17.5%;
+    --secondary-foreground: 210 40% 98%;
+    --muted: 217.2 32.6% 17.5%;
+    --muted-foreground: 215 20.2% 65.1%;
+    --accent: 217.2 32.6% 17.5%;
+    --accent-foreground: 210 40% 98%;
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 210 40% 98%;
+    --border: 217.2 32.6% 17.5%;
+    --input: 217.2 32.6% 17.5%;
+    --ring: 212.7 26.8% 83.9%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+}
+
+/* Industrial-specific styles */
+@layer components {
+  .touch-target {
+    @apply min-h-[56px] min-w-[56px];
+  }
+
+  .touch-target-lg {
+    @apply min-h-[72px] min-w-[72px];
+  }
+
+  .industrial-card {
+    @apply bg-white border border-gray-200 rounded-lg shadow-sm hover:shadow-md transition-shadow;
+  }
+
+  .status-running {
+    @apply text-green-600 bg-green-50 border-green-200;
+  }
+
+  .status-stopped {
+    @apply text-red-600 bg-red-50 border-red-200;
+  }
+
+  .status-warning {
+    @apply text-amber-600 bg-amber-50 border-amber-200;
+  }
+
+  .oee-excellent {
+    @apply text-green-600 bg-green-50 border-green-200;
+  }
+
+  .oee-good {
+    @apply text-amber-600 bg-amber-50 border-amber-200;
+  }
+
+  .oee-poor {
+    @apply text-red-600 bg-red-50 border-red-200;
+  }
+}
+
+/* Animation for live data updates */
+@keyframes pulse-subtle {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.8;
+  }
+}
+
+.live-data {
+  animation: pulse-subtle 2s ease-in-out infinite;
+}
+
+/* High contrast mode for industrial environments */
+@media (prefers-contrast: high) {
+  :root {
+    --border: 0 0% 20%;
+    --foreground: 0 0% 0%;
+    --background: 0 0% 100%;
+  }
+}
+
+/* Reduced motion for accessibility */
+@media (prefers-reduced-motion: reduce) {
+  .live-data {
+    animation: none;
+  }
+
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
