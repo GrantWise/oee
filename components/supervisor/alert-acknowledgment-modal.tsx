@@ -168,7 +168,7 @@ export function AlertAcknowledgmentModal({ alert, isOpen, onClose, onAcknowledge
     <Dialog open={isOpen} onOpenChange={onClose}>
       <DialogContent className="max-w-7xl max-h-[95vh] overflow-y-auto">
         <DialogHeader>
-          <DialogTitle className="flex items-center gap-2">
+          <DialogTitle className="flex items-center gap-2" style={{ color: "hsl(220 87% 32%)" }}>
             <CheckCircle className="h-5 w-5 text-green-600" />
             Acknowledge Alert - Classify Downtime Reason
           </DialogTitle>
@@ -181,16 +181,18 @@ export function AlertAcknowledgmentModal({ alert, isOpen, onClose, onAcknowledge
               <div className="flex items-center gap-3">
                 <AlertIcon className="h-5 w-5" />
                 <div>
-                  <h3 className="font-semibold">{alert.title}</h3>
+                  <h3 className="font-semibold" style={{ color: "hsl(220 87% 32%)" }}>
+                    {alert.title}
+                  </h3>
                   <p className="text-sm text-muted-foreground">{alert.message}</p>
                 </div>
               </div>
               <div className="flex items-center gap-2 text-sm">
                 <span>
-                  <strong>Machine:</strong> {alert.machineName}
+                  <strong style={{ color: "hsl(220 87% 32%)" }}>Machine:</strong> {alert.machineName}
                 </span>
                 <span>
-                  <strong>Time:</strong> {formatTimeAgo(alert.timestamp)}
+                  <strong style={{ color: "hsl(220 87% 32%)" }}>Time:</strong> {formatTimeAgo(alert.timestamp)}
                 </span>
               </div>
             </div>
@@ -201,15 +203,26 @@ export function AlertAcknowledgmentModal({ alert, isOpen, onClose, onAcknowledge
             <div className="space-y-4">
               {/* Selected Reason Path */}
               {selectedLevel1 && (
-                <div className="p-3 bg-blue-50 border border-blue-200 rounded">
+                <div
+                  className="p-3 rounded"
+                  style={{ backgroundColor: "hsl(210 40% 94%)", border: "1px solid hsl(220 87% 32%)" }}
+                >
                   <div className="flex items-center justify-between">
                     <div>
-                      <div className="text-sm text-blue-800 mb-1">Selected Classification Path</div>
-                      <div className="font-semibold text-blue-900">{getSelectedReasonPath()}</div>
+                      <div className="text-sm mb-1" style={{ color: "hsl(220 87% 32%)" }}>
+                        Selected Classification Path
+                      </div>
+                      <div className="font-semibold" style={{ color: "hsl(220 87% 32%)" }}>
+                        {getSelectedReasonPath()}
+                      </div>
                     </div>
                     <div className="text-right">
-                      <div className="text-sm text-blue-600">Level</div>
-                      <div className="font-semibold text-blue-900">{currentLevel} of 3</div>
+                      <div className="text-sm" style={{ color: "hsl(220 87% 32%)" }}>
+                        Level
+                      </div>
+                      <div className="font-semibold" style={{ color: "hsl(220 87% 32%)" }}>
+                        {currentLevel} of 3
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -230,7 +243,11 @@ export function AlertAcknowledgmentModal({ alert, isOpen, onClose, onAcknowledge
 
               {/* Supervisor Notes */}
               <div className="space-y-2">
-                <Label htmlFor="supervisor-notes" className="text-base font-medium">
+                <Label
+                  htmlFor="supervisor-notes"
+                  className="text-base font-medium"
+                  style={{ color: "hsl(220 87% 32%)" }}
+                >
                   Supervisor Notes (Optional)
                 </Label>
                 <Textarea
@@ -247,13 +264,15 @@ export function AlertAcknowledgmentModal({ alert, isOpen, onClose, onAcknowledge
             <div className="space-y-4">
               <div className="text-center py-8">
                 <CheckCircle className="h-16 w-16 mx-auto mb-4 text-green-500" />
-                <h3 className="text-lg font-semibold mb-2">Acknowledge Alert</h3>
+                <h3 className="text-lg font-semibold mb-2" style={{ color: "hsl(220 87% 32%)" }}>
+                  Acknowledge Alert
+                </h3>
                 <p className="text-muted-foreground">This alert does not require downtime classification.</p>
               </div>
 
               {/* Simple Notes */}
               <div className="space-y-2">
-                <Label htmlFor="simple-notes" className="text-base font-medium">
+                <Label htmlFor="simple-notes" className="text-base font-medium" style={{ color: "hsl(220 87% 32%)" }}>
                   Notes (Optional)
                 </Label>
                 <Textarea
@@ -272,6 +291,10 @@ export function AlertAcknowledgmentModal({ alert, isOpen, onClose, onAcknowledge
                   onClick={handleAcknowledgeWithoutClassification}
                   disabled={isSubmitting}
                   className="min-h-[56px] px-8"
+                  style={{
+                    backgroundColor: "hsl(220 87% 32%)",
+                    color: "hsl(210 40% 98%)",
+                  }}
                 >
                   {isSubmitting ? (
                     "Processing..."

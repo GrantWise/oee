@@ -6,6 +6,8 @@ import { Badge } from "@/components/ui/badge"
 import { SupervisorNav } from "@/components/supervisor/supervisor-nav"
 import { LiveOEEChart } from "@/components/analytics/live-oee-chart"
 import { PerformanceHeatmap } from "@/components/analytics/performance-heatmap"
+import { DowntimeParetoFrequency } from "@/components/analytics/downtime-pareto-frequency"
+import { DowntimeParetoDuration } from "@/components/analytics/downtime-pareto-duration"
 import { BarChart3, TrendingUp, Target, AlertTriangle, RefreshCw } from "lucide-react"
 import { useState } from "react"
 
@@ -28,14 +30,19 @@ export default function SupervisorAnalytics() {
     setIsRefreshing(false)
   }
 
+  const primaryColor = "#0f4a7a"
+  const secondaryColor = "#f1f5f9"
+
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen" style={{ backgroundColor: secondaryColor }}>
       {/* Header */}
       <div className="bg-white shadow-sm border-b">
         <div className="max-w-[1600px] mx-auto px-6 py-4">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-4">
-              <h1 className="text-2xl font-bold">Live OEE Analytics</h1>
+              <h1 className="text-2xl font-bold" style={{ color: primaryColor }}>
+                Live OEE Analytics
+              </h1>
               <Badge variant="outline" className="text-sm">
                 Real-Time Data
               </Badge>
@@ -50,7 +57,9 @@ export default function SupervisorAnalytics() {
         <div className="flex items-center justify-between bg-white rounded-lg p-4 shadow-sm">
           <div className="flex items-center gap-4">
             <div className="flex items-center gap-2">
-              <span className="text-sm font-medium">Machine:</span>
+              <span className="text-sm font-medium" style={{ color: primaryColor }}>
+                Machine:
+              </span>
               <div className="flex gap-1">
                 {machines.map((machine) => (
                   <Button
@@ -58,7 +67,16 @@ export default function SupervisorAnalytics() {
                     variant={selectedMachine === machine.id ? "default" : "outline"}
                     size="sm"
                     onClick={() => setSelectedMachine(machine.id)}
-                    className={selectedMachine !== machine.id ? "bg-transparent" : ""}
+                    style={
+                      selectedMachine === machine.id
+                        ? { backgroundColor: primaryColor, color: "white", borderColor: primaryColor }
+                        : {
+                            backgroundColor: "transparent",
+                            color: primaryColor,
+                            borderColor: primaryColor,
+                          }
+                    }
+                    className="hover:opacity-80 transition-opacity"
                   >
                     {machine.name}
                   </Button>
@@ -67,7 +85,9 @@ export default function SupervisorAnalytics() {
             </div>
 
             <div className="flex items-center gap-2">
-              <span className="text-sm font-medium">Time Range:</span>
+              <span className="text-sm font-medium" style={{ color: primaryColor }}>
+                Time Range:
+              </span>
               <div className="flex gap-1">
                 {(["1h", "4h", "8h", "24h"] as const).map((range) => (
                   <Button
@@ -75,7 +95,16 @@ export default function SupervisorAnalytics() {
                     variant={selectedTimeRange === range ? "default" : "outline"}
                     size="sm"
                     onClick={() => setSelectedTimeRange(range)}
-                    className={selectedTimeRange !== range ? "bg-transparent" : ""}
+                    style={
+                      selectedTimeRange === range
+                        ? { backgroundColor: primaryColor, color: "white", borderColor: primaryColor }
+                        : {
+                            backgroundColor: "transparent",
+                            color: primaryColor,
+                            borderColor: primaryColor,
+                          }
+                    }
+                    className="hover:opacity-80 transition-opacity"
                   >
                     {range}
                   </Button>
@@ -89,7 +118,12 @@ export default function SupervisorAnalytics() {
             size="sm"
             onClick={handleRefresh}
             disabled={isRefreshing}
-            className="bg-transparent"
+            style={{
+              backgroundColor: "transparent",
+              color: primaryColor,
+              borderColor: primaryColor,
+            }}
+            className="hover:opacity-80 transition-opacity bg-transparent"
           >
             <RefreshCw className={`mr-2 h-4 w-4 ${isRefreshing ? "animate-spin" : ""}`} />
             Refresh
@@ -109,7 +143,9 @@ export default function SupervisorAnalytics() {
               </CardTitle>
             </CardHeader>
             <CardContent>
-              <div className="text-3xl font-bold text-blue-600">81.5%</div>
+              <div className="text-3xl font-bold" style={{ color: primaryColor }}>
+                81.5%
+              </div>
               <div className="flex items-center text-sm text-green-600 mt-1">
                 <TrendingUp className="mr-1 h-3 w-3" />
                 +2.3% vs yesterday
@@ -138,7 +174,9 @@ export default function SupervisorAnalytics() {
               </CardTitle>
             </CardHeader>
             <CardContent>
-              <div className="text-lg font-bold">Line C</div>
+              <div className="text-lg font-bold" style={{ color: primaryColor }}>
+                Line C
+              </div>
               <div className="text-2xl font-bold text-green-600">89.7%</div>
             </CardContent>
           </Card>
@@ -151,7 +189,9 @@ export default function SupervisorAnalytics() {
               </CardTitle>
             </CardHeader>
             <CardContent>
-              <div className="text-lg font-bold">Line A</div>
+              <div className="text-lg font-bold" style={{ color: primaryColor }}>
+                Line A
+              </div>
               <div className="text-2xl font-bold text-red-600">78.5%</div>
             </CardContent>
           </Card>
@@ -164,14 +204,21 @@ export default function SupervisorAnalytics() {
           timeRange={selectedTimeRange}
         />
 
-        {/* Performance Heatmap */}
-        <PerformanceHeatmap />
+        {/* Performance Analytics Row */}
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+          {/* Performance Heatmap */}
+          <PerformanceHeatmap />
+
+          {/* Downtime Pareto Charts */}
+          <DowntimeParetoFrequency />
+          <DowntimeParetoDuration />
+        </div>
 
         {/* Additional Analytics */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
           <Card>
             <CardHeader>
-              <CardTitle>Top Downtime Reasons</CardTitle>
+              <CardTitle style={{ color: primaryColor }}>Top Downtime Reasons</CardTitle>
             </CardHeader>
             <CardContent>
               <div className="space-y-3">
@@ -181,13 +228,21 @@ export default function SupervisorAnalytics() {
                   { reason: "Operator Break", count: 15, duration: "1.2h", impact: "Low" },
                   { reason: "Quality Issues", count: 5, duration: "0.9h", impact: "Medium" },
                 ].map((item, index) => (
-                  <div key={index} className="flex items-center justify-between p-3 bg-gray-50 rounded">
+                  <div
+                    key={index}
+                    className="flex items-center justify-between p-3 rounded"
+                    style={{ backgroundColor: secondaryColor }}
+                  >
                     <div>
-                      <div className="font-medium">{item.reason}</div>
+                      <div className="font-medium" style={{ color: primaryColor }}>
+                        {item.reason}
+                      </div>
                       <div className="text-sm text-muted-foreground">{item.count} occurrences</div>
                     </div>
                     <div className="text-right">
-                      <div className="font-semibold">{item.duration}</div>
+                      <div className="font-semibold" style={{ color: primaryColor }}>
+                        {item.duration}
+                      </div>
                       <Badge
                         variant={
                           item.impact === "High" ? "destructive" : item.impact === "Medium" ? "secondary" : "outline"
@@ -204,7 +259,7 @@ export default function SupervisorAnalytics() {
 
           <Card>
             <CardHeader>
-              <CardTitle>Performance Predictions</CardTitle>
+              <CardTitle style={{ color: primaryColor }}>Performance Predictions</CardTitle>
             </CardHeader>
             <CardContent>
               <div className="space-y-4">

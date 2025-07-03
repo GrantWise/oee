@@ -137,7 +137,9 @@ export function DowntimeReasonGrid({
 }: DowntimeReasonGridProps) {
   const renderLevel1 = () => (
     <div className="space-y-4">
-      <h3 className="text-xl font-semibold text-primary">Select Main Category</h3>
+      <h3 className="text-xl font-semibold" style={{ color: "hsl(220 87% 32%)" }}>
+        Select Main Category
+      </h3>
       <div className="grid grid-cols-3 gap-4">
         {downtimeLevel1.map((category) => {
           const IconComponent = iconMap[category.icon as keyof typeof iconMap] || HelpCircle
@@ -145,7 +147,7 @@ export function DowntimeReasonGrid({
           return (
             <Card
               key={category.id}
-              className="cursor-pointer transition-all hover:shadow-lg active:scale-[0.95] touch-manipulation border-2 hover:border-primary"
+              className="cursor-pointer transition-all hover:shadow-lg active:scale-[0.95] touch-manipulation border-2 hover:border-[hsl(220_87%_32%)]"
               onClick={() => onLevel1Select?.(category)}
             >
               <CardContent className="p-6 text-center min-h-[140px] flex flex-col items-center justify-center">
@@ -162,7 +164,9 @@ export function DowntimeReasonGrid({
                 >
                   <IconComponent className="h-8 w-8" />
                 </div>
-                <h4 className="font-semibold text-base text-primary">{category.name}</h4>
+                <h4 className="font-semibold text-base" style={{ color: "hsl(220 87% 32%)" }}>
+                  {category.name}
+                </h4>
               </CardContent>
             </Card>
           )
@@ -183,7 +187,9 @@ export function DowntimeReasonGrid({
             <ArrowLeft className="mr-2 h-5 w-5" />
             Back
           </Button>
-          <h3 className="text-xl font-semibold text-primary">{selectedLevel1.name} - Select Subcategory</h3>
+          <h3 className="text-xl font-semibold" style={{ color: "hsl(220 87% 32%)" }}>
+            {selectedLevel1.name} - Select Subcategory
+          </h3>
         </div>
 
         <div className="grid grid-cols-3 gap-4">
@@ -193,7 +199,7 @@ export function DowntimeReasonGrid({
             return (
               <Card
                 key={subcategory.id}
-                className="cursor-pointer transition-all hover:shadow-lg active:scale-[0.95] touch-manipulation border-2 hover:border-primary"
+                className="cursor-pointer transition-all hover:shadow-lg active:scale-[0.95] touch-manipulation border-2 hover:border-[hsl(220_87%_32%)]"
                 onClick={() => onLevel2Select?.(subcategory)}
               >
                 <CardContent className="p-6 text-center min-h-[140px] flex flex-col items-center justify-center">
@@ -210,7 +216,9 @@ export function DowntimeReasonGrid({
                   >
                     <IconComponent className="h-8 w-8" />
                   </div>
-                  <h4 className="font-semibold text-base text-primary">{subcategory.name}</h4>
+                  <h4 className="font-semibold text-base" style={{ color: "hsl(220 87% 32%)" }}>
+                    {subcategory.name}
+                  </h4>
                 </CardContent>
               </Card>
             )
@@ -222,7 +230,11 @@ export function DowntimeReasonGrid({
           <Button
             size="lg"
             onClick={onRecordAndResume}
-            className="flex-1 min-h-[72px] text-lg font-semibold bg-primary hover:bg-primary/90"
+            className="flex-1 min-h-[72px] text-lg font-semibold industrial-primary hover:industrial-primary-hover"
+            style={{
+              backgroundColor: "hsl(220 87% 32%)",
+              color: "hsl(210 40% 98%)",
+            }}
           >
             Record & Acknowledge Alert
           </Button>
@@ -243,7 +255,9 @@ export function DowntimeReasonGrid({
             <ArrowLeft className="mr-2 h-5 w-5" />
             Back
           </Button>
-          <h3 className="text-xl font-semibold text-primary">{selectedLevel2.name} - Select Specific Reason</h3>
+          <h3 className="text-xl font-semibold" style={{ color: "hsl(220 87% 32%)" }}>
+            {selectedLevel2.name} - Select Specific Reason
+          </h3>
         </div>
 
         <div className="grid grid-cols-3 gap-4">
@@ -253,7 +267,7 @@ export function DowntimeReasonGrid({
             return (
               <Card
                 key={reason.id}
-                className="cursor-pointer transition-all hover:shadow-lg active:scale-[0.95] touch-manipulation border-2 hover:border-primary"
+                className="cursor-pointer transition-all hover:shadow-lg active:scale-[0.95] touch-manipulation border-2 hover:border-[hsl(220_87%_32%)]"
                 onClick={() => onLevel3Select?.(reason)}
               >
                 <CardContent className="p-6 text-center min-h-[140px] flex flex-col items-center justify-center">
@@ -270,7 +284,9 @@ export function DowntimeReasonGrid({
                   >
                     <IconComponent className="h-8 w-8" />
                   </div>
-                  <h4 className="font-semibold text-sm text-primary">{reason.name}</h4>
+                  <h4 className="font-semibold text-sm" style={{ color: "hsl(220 87% 32%)" }}>
+                    {reason.name}
+                  </h4>
                   <p className="text-xs text-muted-foreground mt-1">Used {reason.frequency}x</p>
                 </CardContent>
               </Card>
@@ -283,7 +299,11 @@ export function DowntimeReasonGrid({
           <Button
             size="lg"
             onClick={onRecordAndResume}
-            className="flex-1 min-h-[72px] text-lg font-semibold bg-primary hover:bg-primary/90"
+            className="flex-1 min-h-[72px] text-lg font-semibold"
+            style={{
+              backgroundColor: "hsl(220 87% 32%)",
+              color: "hsl(210 40% 98%)",
+            }}
           >
             Record & Acknowledge Alert
           </Button>
